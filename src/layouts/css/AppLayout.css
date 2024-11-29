@@ -1,0 +1,28 @@
+/* AppLayout.css */
+
+.sidebar-menu .ant-menu-item {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .sidebar-menu .ant-menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /* Change color as needed */
+    transition: width 0.3s ease;
+    z-index: 1;
+  }
+  
+  .sidebar-menu .ant-menu-item:hover::before {
+    width: 100%;
+  }
+  
+  .sidebar-menu .ant-menu-item a {
+    position: relative;
+    z-index: 2;
+  }
+  

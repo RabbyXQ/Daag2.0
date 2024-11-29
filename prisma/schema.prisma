@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  pass       String
+  role       Int      @default(1)
+  email      String   @unique
+  age        Int?
+  address    String?
+  firstName  String?
+  lastName   String?
+  mobile     String?
+  dob        String?
+  occupation String?
+  avatar     String?
+  facebook   String?
+  twitter    String?
+  linkedIn   String?
+}
+
+model Land {
+  id           Int      @id @default(autoincrement())
+  name         String
+  location     String
+  size         Float
+  owner        String
+  landType     String?
+  marketValue  Float
+  notes        String?  @db.Text
+  polygons     Json
+  createdBy    String
+  createdAt    DateTime @default(now())
+  updatedBy    String?
+  updatedAt    DateTime @updatedAt
+  history      Json?
+
+}
+
+model Participator {
+  id        Int      @id @default(autoincrement())
+  name      String
+  relation  String
+  part   Int?     // Ensure this field exists
+  createdBy String
+  updatedBy String
+  history   Json?    // Assuming history is a JSON type or appropriate type
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+model LandParticipator {
+  id             Int      @id @default(autoincrement())
+  landId         Int
+  participatorId Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  createdBy      String
+  updatedBy      String?
+  history        Json?
+}
+
+
+
+model MarketItem {
+  id         Int      @id @default(autoincrement())
+  landId     Int
+  createdBy  String
+  isActive   Boolean   @default(true)
+  updatedBy  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  history    Json?
+}
+
+model Bid {
+  id          Int      @id @default(autoincrement())
+  marketItemId      Int
+  bidAmount   Float
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  history     Json?
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  message     String
+  type        String
+  recievedBy  String
+  createdBy   String
+  isRead      Boolean   @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  content    String
+  marketItemId     Int
+  createdBy  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Connection{
+  id          Int   @id @default(autoincrement())
+  follower Int?
+  folowed Int?
+}
+
+
+model Message{
+  id Int      @id         @default(autoincrement())
+  sender String
+  reciever String
+  message String
+  sentAt  DateTime @default(now())
+}
